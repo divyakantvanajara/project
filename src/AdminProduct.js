@@ -1,44 +1,44 @@
 import React, { Component } from 'react';
 class AdminProduct extends Component
 {
-    constructor(props)
-    {
-      super(props);
-      console.log('constructor');
-      this.state = {
-        products : []
-      }
+  constructor(props)
+  {
+    super(props);
+    console.log('constructor');
+    this.state = {
+      products : []
     }
-    componentDidMount(){
-      console.log('componentDidMount');
-      var url = "https://theeasylearnacademy.com/shop/ws/product.php";
-      fetch(url).then((response) => response.json()).then((json)=>{
-        console.log(json);
-        /*
-          [
-              0 {"error":"no"},
-              1 {"total":2},
-              2 {"id":"2","categoryid":"1","title":"dell laptop","price":"200","stock":"100","weight":"3500","size":"15 inch","photo":"dell.jpg","detail":"WINDOWS 10 8 GB DDR3 RAM 512 gb ssd hard disk","islive":"1","isdeleted":"0"},
-              3 {"id":"42","categoryid":"0","title":"Apple","price":"1111","stock":"11","weight":"0","size":"","photo":"apple.jpg","detail":"All about apple","islive":"1","isdeleted":"0"}
-            ]
-        */
-            var error = json[0]['error'];
-            if(error !== "no")
-            {
-                alert(error);
-            }
-            else 
-            {
-              var total = json[1]['total'];
-              console.log(error,total);
-              json.splice(0,2);
-              console.log(json);
-              this.setState({
-                products:json
-              });
-            }
-      });
-    }
+  }
+  componentDidMount(){
+    console.log('componentDidMount');
+    var url = "https://theeasylearnacademy.com/shop/ws/product.php";
+    fetch(url).then((response) => response.json()).then((json)=>{
+      console.log(json);
+      /*
+        [
+            0 {"error":"no"},
+            1 {"total":2},
+            2 {"id":"2","categoryid":"1","title":"dell laptop","price":"200","stock":"100","weight":"3500","size":"15 inch","photo":"dell.jpg","detail":"WINDOWS 10 8 GB DDR3 RAM 512 gb ssd hard disk","islive":"1","isdeleted":"0"},
+            3 {"id":"42","categoryid":"0","title":"Apple","price":"1111","stock":"11","weight":"0","size":"","photo":"apple.jpg","detail":"All about apple","islive":"1","isdeleted":"0"}
+          ]
+      */
+          var error = json[0]['error'];
+          if(error !== "no")
+          {
+              alert(error);
+          }
+          else 
+          {
+            var total = json[1]['total'];
+            console.log(error,total);
+            json.splice(0,2);
+            console.log(json);
+            this.setState({
+              products:json
+            });
+          }
+    });
+   }
     render()
     {
         return (<div className="container">
@@ -67,19 +67,19 @@ class AdminProduct extends Component
                     {this.state.products.map(function(product){
                       return( <tr>
                         <td>1</td>
-                        <td>Mobile</td>
-                        <td>IPhone -13</td>
+                        <td>{product['categoryId']}</td>
+                        <td>{product['title']}</td>
                         <td>
                           <img src="https://picsum.photos/100" className="img-fluid" />
                         </td>
                         <td>
-                          125000
+                          {product['price']}
                         </td>
                         <td>
-                          25
+                        {product['stock']}
                         </td>
                         <td>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor eligendi fuga commodi delectus aliquid, ullam consequuntur esse illum temporibus nobis laboriosam veritatis quo voluptas, assumenda, sunt impedit error voluptates ab.
+                        {product['detail']}
                         </td>
                         <td>
                           <a href="#"><i className="fa fa-trash fa-2x" /></a>
