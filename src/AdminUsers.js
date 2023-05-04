@@ -1,8 +1,45 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 class AdminUsers extends Component
 {
-    render(){
-        return(<div className="container">
+    constructor(props)
+    {
+      super(props);
+      this.state = {
+        users:[]
+      }
+    }
+    componentDidMount()
+    {
+       axios({
+        method: 'get',
+        url: "https://theeasylearnacademy.com/shop/ws/users.php",
+        responseType: 'json'
+      }).then(function (response) {
+          console.log(response.data);
+          var error = response.data[0].error;
+          if(error !=="no")
+            alert(error);
+          else 
+          {
+            var total = response.data[1].total;
+            console.log(error,total);
+            if(total==0)
+                alert('no users found');
+            else 
+            {
+                response.data.splice(0,2);
+                console.log(response.data);
+                this.setState({
+                  users:response.data
+                });
+            }
+          }
+        });
+    }
+    render()
+    {
+        return (<div className="container">
         <div className="row mt-5">
           <div className="col-12">
             <div className="h1 border-bottom pb-2 mb-2">User Management</div>
@@ -18,21 +55,23 @@ class AdminUsers extends Component
                       <th width="40%">Mobile</th>
                       <th width="15%">View Orders</th>
                     </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>ankit@gmail.com</td>
-                      <td>1234567890</td>
-                      <td>
-                        <a href="#"><i className="fa fa-eye fa-2x" /></a>
-                      </td>
-                    </tr>
+                    {this.state.users.map(function(user){
+                        return (<tr>
+                          <td>1</td>
+                          <td>ankit@gmail.com</td>
+                          <td>1234567890</td>
+                          <td>
+                            <a href="#"><i className="fa fa-eye fa-2x" /></a>
+                          </td>
+                        </tr>)
+                    })}
                   </tbody></table>
               </div>
             </div>
           </div>
         </div>
       </div>
-      )
+      );
     }
 }
 export default AdminUsers
