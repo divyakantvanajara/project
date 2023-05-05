@@ -11,6 +11,7 @@ class AdminUsers extends Component
     }
     componentDidMount()
     {
+       var self = this;
        axios({
         method: 'get',
         url: "https://theeasylearnacademy.com/shop/ws/users.php",
@@ -30,7 +31,7 @@ class AdminUsers extends Component
             {
                 response.data.splice(0,2);
                 console.log(response.data);
-                this.setState({
+                self.setState({
                   users:response.data
                 });
             }
@@ -57,9 +58,9 @@ class AdminUsers extends Component
                     </tr>
                     {this.state.users.map(function(user){
                         return (<tr>
-                          <td>1</td>
-                          <td>ankit@gmail.com</td>
-                          <td>1234567890</td>
+                          <td>{user['id']}</td>
+                          <td>{user['email']}</td>
+                          <td>{user['mobile']}</td>
                           <td>
                             <a href="#"><i className="fa fa-eye fa-2x" /></a>
                           </td>
