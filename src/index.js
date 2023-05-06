@@ -10,7 +10,7 @@ import AdminProduct  from './AdminProduct';
 import AdminInsertProduct  from './AdminInsertProduct';
 import AdminEditProduct  from './AdminEditProduct';
 import AdminOrders from './AdminOrders';
-import AdminViewOrders from './AdminViewOrders';
+import AdminOrderDetail from './AdminOrderDetail';
 import AdminUsers from './AdminUsers';
 import Adminlogin from './Adminlogin';
 import AdminChangePassword from './AdminChangePassword';
@@ -31,7 +31,7 @@ function MyRouter()
                     <Route path='/admin_insert_product' element={< AdminInsertProduct />} />
                     <Route path='/admin_edit_product' element={< AdminEditProduct />} />
                     <Route path='/admin_orders' element={<AdminOrders />} />
-                    <Route path='/admin_view_orders' element={<AdminViewOrders />} />
+                    <Route path='/admin_orders_detail/:orderid' element={<AdminOrderDetail/>} />
                     <Route path='/admin_users' element={<AdminUsers />} />
                     <Route path='/admin_login' element={<Adminlogin />} />
                     <Route path='/admin_change_password' element={<AdminChangePassword/>} />

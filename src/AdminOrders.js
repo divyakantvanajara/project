@@ -12,28 +12,28 @@ class AdminOrders extends Component
     }
     componentDidMount()
     {
-      var self = this;
+      var self =this;
       axios({
         method: 'get',
         url: 'https://theeasylearnacademy.com/shop/ws/orders.php',
         responseType: 'json'
-      }).then(function (response) {
+      })
+        .then(function (response) {
           console.log(response.data);
           var error = response.data[0]['error'];
           console.log('error',error);
-          if(error !=="no")
-            alert(error)
-          else 
+          if(error !=='no')
+          alert(error);
+          else
           {
-            var total = response.data[1]['total'];
-            if(total === 0)
-              alert('no orders found');
-            else 
-            {
-               response.data.splice(0,2);
-               self.setState({
-                  orders:response.data
-               });
+            var total = response.data[1]['total']
+            if(total ===0)
+            alert('no order found');
+            else{
+              response.data.splice(0,2);
+              self.setState({
+                orders:response.data,
+              })
             }
           }
         });
@@ -59,7 +59,7 @@ class AdminOrders extends Component
                       <th width="15%">View Detail</th>
                     </tr>
                     {this.state.orders.map(function(order){
-                       return <tr>
+                       return <tr key={order.id}>
                        <td>{order.id}</td>
                        <td>
                          {order.fullname}  <br />
@@ -71,7 +71,7 @@ class AdminOrders extends Component
                        <td>{order.amount}</td>
                        <td>Confirmed</td>
                        <td>
-                         <a href="/admin-orders-detail">
+                         <a href={"/admin_orders_detail/" + order.id}>
                            <i className="fa fa-eye fa-2x" />
                          </a>
                        </td>

@@ -1,6 +1,56 @@
 import React, { Component } from 'react';
-class AdminViewOrders extends Component
+import axios from 'axios';
+class AdminOrderDetail extends Component
 {
+  constructor(props)
+  {
+    super(props);
+    this.state ={
+      fullname:'',
+      address1:'',
+      address2:'',
+      city:'',
+      pincode:'',
+      amount:'',
+    }
+  }
+  componentDidMount(){
+    var url = new URL(window.location.href);
+    var CurrentPage= url.href;
+    var orderid = CurrentPage.substr(CurrentPage.length-1);
+    console.log(orderid);
+    var apiurl = `https://theeasylearnacademy.com/shop/ws/orders.php?id=${orderid}`;
+    var self = this;
+    axios({
+      method: 'get',
+      url: apiurl,
+      responseType: 'json'
+    }).then(function (response){
+        console.log(response.data);
+        var error = response.data[0]['error'];
+        if(error!=='no')
+          alert(error);
+        else 
+        {
+          var total =  response.data[1]['total'];
+          if(total===0)
+            alert('no order found');
+          else 
+          {
+              response.data.splice(0,2);
+              console.log(response.data);
+              self.setState({
+                fullname:response.data[0]['fullname'],
+                address1:response.data[0]['address1'],
+                address2:response.data[0]['address2'],
+                city:response.data[0]['city'],
+                pincode:response.data[0]['pincode'],
+                amount:response.data[0]['amount'],
+              });
+          }
+        }
+    });
+  }
     render()
     {
         return(<div className="container">
@@ -23,13 +73,13 @@ class AdminViewOrders extends Component
                     <tr>
                       <td>1</td>
                       <td>
-                        Ram Kumar  <br />
-                        Hill Drive, opp aksharwadi temple <br />
-                        Waghawadi Road <br />
-                        Bhavnagar - 364001 
+                      {this.state.fullname} <br />
+                      {this.state.address1} <br />
+                      {this.state.address2}<br />
+                      {this.state.city}- {this.state.pincode}
                       </td>
                       <td>01-01-2023</td>
-                      <td>25000</td>
+                      <td>{this.state.amount}</td>
                       <td>Confirmed</td>
                     </tr>
                   </tbody></table>
@@ -77,4 +127,4 @@ class AdminViewOrders extends Component
        )
     }
 }
-export default AdminViewOrders
+export default AdminOrderDetail
