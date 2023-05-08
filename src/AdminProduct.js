@@ -102,7 +102,7 @@ class AdminProduct extends Component {
                         </td>
                         <td>
                           <button className='btn btn-danger' onClick={(e) => self.DeleteProduct(product.id)}><i className="fa fa-trash fa-2x" /></button>
-                          <a href="/admin-edit-product"><i className="fa fa-pencil fa-2x" /></a>
+                          <a href="/admin_edit_product"><i className="fa fa-pencil fa-2x" /></a>
                         </td>
                       </tr>
                     )
