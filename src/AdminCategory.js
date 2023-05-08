@@ -43,8 +43,35 @@ class AdminCategory extends Component
             
         });
     }
+    
+    DeleteCategory = (categoryid) => {
+      console.log(categoryid);
+      var url = "https://theeasylearnacademy.com/shop/ws/delete_category.php?id=1" //+ categoryid;
+      fetch(url).then(response => response.json()).then((data)=>{
+        console.log(data);
+        //[
+            // 0 {"error":"no"},
+            // 1 {"message":"category deleted"}
+          // ]
+        var error = data[0]['error'];
+        if(error!=='no')
+          alert(error);
+        else 
+          {
+              var temp = this.state.categories.filter((category) =>{
+                    if (category.id !=categoryid)
+                        return category
+              });
+              this.setState({
+                categories:temp
+              });
+              alert(data[1]['message']);
+          }
+      });
+    }
     render()
     {
+        var self = this;
         return (<div className="container">
         <div className="row mt-5">
           <div className="col-12">
@@ -58,7 +85,8 @@ class AdminCategory extends Component
               </div>
               <div className="card-body">
                 <table className="table table-striped table-bordered">
-                  <tbody><tr>
+                  <tbody>
+                    <tr>
                       <th width="8%">Sr No</th>
                       <th>Title</th>
                       <th>Photo</th>
@@ -75,14 +103,15 @@ class AdminCategory extends Component
                           </td>
                         
                           <td>
-                            <a href="/admin-edit-category"><i className="fa fa-pencil fa-2x" /></a>
+                            <a href="/admin_edit_category"><i className="fa fa-pencil fa-2x" /></a>
                           </td>
                           <td>
-                            <a href="#"><i className="fa fa-trash fa-2x" /></a>
+                            <button className='btn btn-danger' onClick={(e) => self.DeleteCategory(category['id'])}><i className="fa fa-trash fa-2x" /></button>
                           </td>
                         </tr>)
                     })}
-                  </tbody></table>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
