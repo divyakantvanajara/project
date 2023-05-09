@@ -46,7 +46,7 @@ class AdminCategory extends Component
     
     DeleteCategory = (categoryid) => {
       console.log(categoryid);
-      var url = "https://theeasylearnacademy.com/shop/ws/delete_category.php?id=1" //+ categoryid;
+      var url = "https://theeasylearnacademy.com/shop/ws/delete_category.php?id=1" // + categoryid;
       fetch(url).then(response => response.json()).then((data)=>{
         console.log(data);
         //[
@@ -77,7 +77,7 @@ class AdminCategory extends Component
           <div className="col-12">
             <div className="h1 border-bottom pb-2 mb-2">Category Management</div>
             <p className="text-end">
-              <a href="/admin-insert-category" className="btn btn-primary">Add Category</a>
+              <a href="/admin_insert_category" className="btn btn-primary">Add Category</a>
             </p>
             <div className="card">
               <div className="card-header text-bg-primary">

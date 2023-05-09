@@ -37,7 +37,7 @@ class AdminProduct extends Component {
   }
   DeleteProduct = (productid) => {
     console.log(productid);
-    var url = "https://theeasylearnacademy.com/shop/ws/delete_product.php?id=1" // + productid;
+    var url = "https://theeasylearnacademy.com/shop/ws/delete_product.php?id=1" // id= + productid;
     fetch(url).then((response) => response.json()).then((data) => {
       console.log(data);
       // [{"error":"no"},{"message":"product deleted"}]
@@ -63,7 +63,7 @@ class AdminProduct extends Component {
         <div className="col-12">
           <div className="h1 border-bottom pb-2 mb-2">Product Management</div>
           <p className="text-end">
-            <a href="/admin-insert-product" className="btn btn-primary">Add Product</a>
+            <a href="/admin_insert_product" className="btn btn-primary">Add Product</a>
           </p>
           <div className="card">
             <div className="card-header text-bg-primary">
@@ -83,8 +83,7 @@ class AdminProduct extends Component {
                     <th width="15%">Operation</th>
                   </tr>
                   {this.state.products.map(function (product) {
-                    return (
-                      <tr>
+                    return (  <tr>
                         <td>1</td>
                         <td>{product.categoryid}</td>
                         <td>{product.title}</td>
